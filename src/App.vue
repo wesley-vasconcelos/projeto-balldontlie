@@ -1,13 +1,20 @@
 <template>
-  <div class="p-6">
-    <input
-      v-model="searchTerm"
-      type="text"
-      placeholder="Buscar jogador..."
-      class="border p-2 mb-4 rounded"
-      style="width: 300px"
+  <div class="p-6 bg-gray-50">
+    <Input
+      :model-value="searchTerm"
       @input="searchPlayers"
-    />
+      classInput="alredy_register text-gray-700 "
+      :hiddenInput="true"
+      @update:model-value="(newValue) => (searchTerm = newValue)"
+    >
+      <template #icon>
+        <div
+          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 short:hidden"
+        >
+          <SearchIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+        </div>
+      </template>
+    </Input>
     <div class="w-full">
       <table class="w-full">
         <thead>
@@ -70,6 +77,8 @@
 import { defineComponent } from "vue";
 import PlayerModal from "@/components/PlayerModal.vue";
 import { getPlayers, deletePlayer } from "@/services/services";
+import Input from "@/components/input/input.vue";
+import { SearchIcon } from "@heroicons/vue/solid";
 
 interface Player {
   id: number;
@@ -84,6 +93,8 @@ interface Player {
 export default defineComponent({
   components: {
     PlayerModal,
+    Input,
+    SearchIcon,
   },
   data() {
     return {
