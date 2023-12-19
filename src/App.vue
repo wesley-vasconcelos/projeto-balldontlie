@@ -9,7 +9,7 @@
     >
       <template #icon>
         <div
-          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 short:hidden"
         >
           <SearchIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
         </div>
