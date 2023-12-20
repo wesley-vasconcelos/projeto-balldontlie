@@ -2,7 +2,7 @@
   <div id="app" class="relative min-h-screen bg-gray-50 grid">
     <BackgroundGray />
     <br />
-    <div class="grid place-items-center row-start-2">
+    <div class="grid place-items-center row-start-2 p-2">
       <router-view></router-view>
     </div>
     <NotifyComponent />
