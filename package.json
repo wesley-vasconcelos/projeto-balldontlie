@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.16",
+    "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "v1",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "axios": "^1.6.2",
-    "vue": "^3.3.11"
+    "notiwind": "^2.0.2",
+    "vue": "^3.3.11",
+    "vue-axios": "^3.5.2",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",

@@ -1,5 +1,8 @@
 <template>
-  <div v-if="selectedPlayer" class="fixed inset-0 z-50 overflow-y-auto">
+  <div
+    v-if="selectedPlayer"
+    class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center"
+  >
     <div
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
       :class="{ 'sm:scale-95': modalOpen }"
@@ -29,13 +32,13 @@
         <div class="flex justify-end">
           <button
             type="submit"
-            class="px-4 py-2 bg-blue-500 text-white rounded"
+            class="px-4 py-2 bg-gray-500 text-white rounded"
           >
             Salvar
           </button>
           <button
             @click="closeModal"
-            class="px-4 py-2 bg-gray-300 rounded ml-2"
+            class="px-4 py-2 bg-gray-100 rounded ml-2"
           >
             Fechar
           </button>

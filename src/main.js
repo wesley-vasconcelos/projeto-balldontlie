@@ -1,6 +1,11 @@
 import { createApp } from "vue";
+import axios from "axios";
 
 import App from "./App.vue";
+import { notify } from "notiwind";
+import Notifications from "notiwind";
+import VueAxios from "vue-axios";
+import router from "@/router";
 
 import "@/assets/css/fonts.css";
 import "@/assets/css/tailwind.css";
@@ -14,4 +19,56 @@ import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
 
-createApp(App).mount("#app");
+const app = createApp(App);
+
+axios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response) {
+      // validação apiXXX
+      const apiError = /[api]\w\w\d\d\d/g;
+      if (
+        typeof error.response.data?.detail === "string" &&
+        error.response.data.detail.match(apiError)
+      ) {
+        notify(
+          {
+            group: "white",
+            title:
+              error.response.data.detail === "api014"
+                ? error.response.data.detail
+                : "generic",
+            type: "error",
+            text: error.response.data.detail,
+          },
+          4000
+        );
+      } else {
+        // se não tem apiXXX retorna erro generico
+        notify(
+          {
+            group: "white",
+            title: "generic",
+            type: "error",
+          },
+          4000
+        );
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+function setHeaderAutomatically(config) {
+  {
+    config.headers.accept = "application/json, text/plain, */*, blob";
+    config.headers.authorization = `Bearer `;
+  }
+  return config;
+}
+axios.interceptors.request.use(setHeaderAutomatically);
+
+app.use(VueAxios, axios).use(router).use(Notifications).mount("#app");
+app.config.devtools = true;
