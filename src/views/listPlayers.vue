@@ -1,58 +1,61 @@
 <template>
   <div class="ring-black rounded-lg">
     <div class="flex items-center justify-center flex-col">
-      <Input
-        :model-value="searchTerm"
-        @input="searchPlayers"
-        classInput="alredy_register text-gray-700 "
-        class="max-w-[200px] mb-4 flex justify-end"
-        :hiddenInput="true"
-        @update:model-value="(newValue) => (searchTerm = newValue)"
-      >
-      </Input>
-      <div class="px-8">
-        <div
-          class="shadow ring-1 ring-black ring-opacity-5 rounded-lg mb-5 overflow-y-scroll h-auto p-[32px]"
-          style="max-height: calc(100vh - 300px); padding-top: 8px"
+      <div class="relative">
+        <Input
+          :model-value="searchTerm"
+          @input="searchPlayers"
+          classInput="classBase p-2"
+          class="w-[200px] mb-4 mt-4 absolute right-8"
+          :hiddenInput="false"
+          @update:model-value="(newValue) => (searchTerm = newValue)"
+          placeholder="Buscar..."
         >
-          <table class="table-fixed divide-y divide-gray-300">
-            <thead>
-              <tr class="pb-4">
-                <th @click="sortPlayers('first_name')">Nome</th>
-                <th @click="sortPlayers('position')">Posição</th>
-                <th @click="sortPlayers('height_inches')">
-                  Polegadas de altura
-                </th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <br />
-              <tr v-for="(player, index) in players" :key="index">
-                <td>{{ player.first_name }} {{ player.last_name }}</td>
-                <td>{{ player.position || "-" }}</td>
-                <td>{{ player.height_inches || "-" }}</td>
-                <td>
-                  <div
-                    class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2"
-                  >
-                    <button
-                      @click="openModal(player)"
-                      class="w-full sm:w-auto px-2 py-1 bg-gray-500 text-white rounded"
+        </Input>
+        <div class="px-8 mt-[70px]">
+          <div
+            class="shadow ring-1 ring-black ring-opacity-5 rounded-lg mb-5 overflow-y-scroll h-auto p-[32px]"
+            style="max-height: calc(100vh - 300px); padding-top: 8px"
+          >
+            <table class="table-fixed divide-y divide-gray-300">
+              <thead>
+                <tr class="pb-4">
+                  <th @click="sortPlayers('first_name')">Nome</th>
+                  <th @click="sortPlayers('position')">Posição</th>
+                  <th @click="sortPlayers('height_inches')">
+                    Polegadas de altura
+                  </th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <br />
+                <tr v-for="(player, index) in players" :key="index">
+                  <td>{{ player.first_name }} {{ player.last_name }}</td>
+                  <td>{{ player.position || "-" }}</td>
+                  <td>{{ player.height_inches || "-" }}</td>
+                  <td>
+                    <div
+                      class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2"
                     >
-                      Editar
-                    </button>
-                    <button
-                      @click="confirmDelete(player)"
-                      class="w-full sm:w-auto px-2 py-1 bg-red-500 text-white rounded"
-                    >
-                      Excluir
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                      <button
+                        @click="openModal(player)"
+                        class="w-full sm:w-auto px-2 py-1 bg-gray-500 text-white rounded"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        @click="confirmDelete(player)"
+                        class="w-full sm:w-auto px-2 py-1 bg-red-500 text-white rounded"
+                      >
+                        Excluir
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
