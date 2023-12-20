@@ -6,7 +6,7 @@
           :model-value="searchTerm"
           @input="searchPlayers"
           classInput="classBase p-2"
-          class="max-w-[200px] mb-4 mt-4 absolute right-8"
+          class="max-w-[200px] mb-4 mt-1 absolute right-8"
           :hiddenInput="false"
           @update:model-value="(newValue) => (searchTerm = newValue)"
           placeholder="Buscar..."
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="flex justify-between mt-4">
+      <div class="flex justify-between mt-1">
         <button
           :disabled="currentPage === 1"
           @click="changePage(currentPage - 1)"
@@ -131,14 +131,14 @@ export default defineComponent({
         this.players = response.data;
         this.totalPages = response.meta.total_pages;
         this.isLoading = false;
-        notify(
-          {
-            group: "white",
-            title: `Lista de jogadores carregada com sucesso`,
-            type: "success",
-          },
-          4000
-        );
+        // notify(
+        //   {
+        //     group: "white",
+        //     title: `Lista de jogadores carregada com sucesso`,
+        //     type: "success",
+        //   },
+        //   4000
+        // );
       } catch (error) {
         this.isLoading = false;
 
