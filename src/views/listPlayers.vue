@@ -131,6 +131,14 @@ export default defineComponent({
         this.players = response.data;
         this.totalPages = response.meta.total_pages;
         this.isLoading = false;
+        notify(
+          {
+            group: "white",
+            title: `Lista de jogadores carregada com sucesso`,
+            type: "success",
+          },
+          4000
+        );
       } catch (error) {
         this.isLoading = false;
 
