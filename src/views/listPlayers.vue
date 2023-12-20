@@ -56,6 +56,8 @@
     :modalOpen="modalOpen"
     @close="closeModal"
   />
+
+  <Loading v-if="isLoading" />
 </template>
 
 <script lang="ts">
@@ -65,6 +67,7 @@ import { getPlayers, deletePlayer } from "@/services/services";
 import Input from "@/components/input/input.vue";
 import { SearchIcon } from "@heroicons/vue/solid";
 import TableComponent from "@/components/table/table.vue";
+import Loading from "@/components/loading/loadingComponent.vue";
 import { notify } from "notiwind";
 
 interface Player {
@@ -83,6 +86,7 @@ export default defineComponent({
     Input,
     SearchIcon,
     TableComponent,
+    Loading,
   },
   data() {
     return {
@@ -93,6 +97,7 @@ export default defineComponent({
       perPage: 25, // Results per page
       selectedPlayer: null as Player | null,
       modalOpen: false,
+      isLoading: false,
     };
   },
   async created() {
@@ -116,6 +121,7 @@ export default defineComponent({
   },
   methods: {
     async fetchPlayers() {
+      this.isLoading = true;
       try {
         const response = await getPlayers(
           this.currentPage,
@@ -124,7 +130,10 @@ export default defineComponent({
         );
         this.players = response.data;
         this.totalPages = response.meta.total_pages;
+        this.isLoading = false;
       } catch (error) {
+        this.isLoading = false;
+
         notify(
           {
             group: "white",
