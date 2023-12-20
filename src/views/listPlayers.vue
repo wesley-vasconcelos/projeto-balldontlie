@@ -1,5 +1,5 @@
 <template>
-  <div class="ring-black rounded-lg">
+  <div class="ring-black rounded-lg overflow-hidden">
     <div class="flex items-center justify-center flex-col">
       <div class="relative">
         <Input
