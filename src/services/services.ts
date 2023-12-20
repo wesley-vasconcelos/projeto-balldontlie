@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { notify } from "notiwind";
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://www.balldontlie.io/api/v1",
@@ -19,7 +20,14 @@ async function getPlayers(
     });
     return response.data;
   } catch (error) {
-    console.error("Erro ao buscar jogadores:", error);
+    notify(
+      {
+        group: "white",
+        title: `Erro! ${error}`,
+        type: "error",
+      },
+      4000
+    );
     throw new Error("Erro ao buscar jogadores");
   }
 }

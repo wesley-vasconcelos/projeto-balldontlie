@@ -17,44 +17,17 @@
             class="shadow ring-1 ring-black ring-opacity-5 rounded-lg mb-5 overflow-y-scroll h-auto p-[32px]"
             style="max-height: calc(100vh - 300px); padding-top: 8px"
           >
-            <table class="table-fixed divide-y divide-gray-300">
-              <thead>
-                <tr class="pb-4">
-                  <th @click="sortPlayers('first_name')">Nome</th>
-                  <th @click="sortPlayers('position')">Posição</th>
-                  <th @click="sortPlayers('height_inches')">
-                    Polegadas de altura
-                  </th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <br />
-                <tr v-for="(player, index) in players" :key="index">
-                  <td>{{ player.first_name }} {{ player.last_name }}</td>
-                  <td>{{ player.position || "-" }}</td>
-                  <td>{{ player.height_inches || "-" }}</td>
-                  <td>
-                    <div
-                      class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2"
-                    >
-                      <button
-                        @click="openModal(player)"
-                        class="w-full sm:w-auto px-2 py-1 bg-gray-500 text-white rounded"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        @click="confirmDelete(player)"
-                        class="w-full sm:w-auto px-2 py-1 bg-red-500 text-white rounded"
-                      >
-                        Excluir
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <TableComponent
+              :players="players"
+              :currentPage="currentPage"
+              :totalPages="totalPages"
+              :searchTerm="searchTerm"
+              :searchPlayers="searchPlayers"
+              :changePage="changePage"
+              :openModal="openModal"
+              :confirmDelete="confirmDelete"
+              :sortPlayers="sortPlayers"
+            />
           </div>
         </div>
       </div>
@@ -91,6 +64,8 @@ import PlayerModal from "@/components/PlayerModal.vue";
 import { getPlayers, deletePlayer } from "@/services/services";
 import Input from "@/components/input/input.vue";
 import { SearchIcon } from "@heroicons/vue/solid";
+import TableComponent from "@/components/table/table.vue";
+import { notify } from "notiwind";
 
 interface Player {
   id: number;
@@ -107,6 +82,7 @@ export default defineComponent({
     PlayerModal,
     Input,
     SearchIcon,
+    TableComponent,
   },
   data() {
     return {
@@ -123,7 +99,14 @@ export default defineComponent({
     try {
       await this.fetchPlayers();
     } catch (error) {
-      console.error("Erro ao buscar jogadores:", error);
+      notify(
+        {
+          group: "white",
+          title: `${error}`,
+          type: "error",
+        },
+        4000
+      );
     }
   },
   computed: {
@@ -142,7 +125,14 @@ export default defineComponent({
         this.players = response.data;
         this.totalPages = response.meta.total_pages;
       } catch (error) {
-        console.error("Erro ao buscar jogadores:", error);
+        notify(
+          {
+            group: "white",
+            title: `${error}`,
+            type: "error",
+          },
+          4000
+        );
       }
     },
     async searchPlayers() {
@@ -175,7 +165,14 @@ export default defineComponent({
           }
           console.log("Jogador excluído com sucesso!");
         } catch (error) {
-          console.error("Erro ao excluir jogador:", error);
+          notify(
+            {
+              group: "white",
+              title: `${error}`,
+              type: "error",
+            },
+            4000
+          );
         }
       }
     },

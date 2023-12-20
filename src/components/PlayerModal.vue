@@ -51,6 +51,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { editPlayer } from "@/services/services";
+import { notify } from "notiwind";
 
 interface Player {
   first_name: string;
@@ -86,7 +87,14 @@ export default defineComponent({
         console.log("Jogador editado:", updatedPlayer);
         //  ação após a edição
       } catch (error) {
-        console.error("Erro ao editar jogador:", error);
+        notify(
+          {
+            group: "white",
+            title: `${error}`,
+            type: "error",
+          },
+          4000
+        );
       }
 
       this.closeModal();
