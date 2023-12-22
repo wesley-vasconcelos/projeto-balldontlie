@@ -6,7 +6,7 @@
           :model-value="searchTerm"
           @input="searchPlayers"
           classInput="classBase p-2"
-          class="max-w-[200px] mb-4 mt-1 absolute right-8"
+          class="max-w-[200px] mb-4 mt-1 absolute sm:right-9 right-[55px]"
           :hiddenInput="false"
           @update:model-value="(newValue) => (searchTerm = newValue)"
           placeholder="Buscar..."

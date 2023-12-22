@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="relative min-h-screen bg-gray-50 grid">
     <BackgroundGray class="h-[7vh]" />
-    <div class="grid place-items-center row-start- p-2">
+    <div
+      class="grid place-items-center row-start p-2 full-screen overflow-hidden mx-4 sm:mx-8"
+    >
       <router-view></router-view>
     </div>
     <NotifyComponent />
